@@ -1,0 +1,30 @@
+
+
+<h2>List of suburbs</h2>
+<table>
+  <thead>
+    <td></td>
+    <td>Suburb</td>
+    <td>State</td>
+    <td>Postcode</td>
+    <td>Latitude</td>
+    <td>Longitude</td>
+    <td></td>
+    <td></td>
+  </thead>
+
+  <tbody>
+	<% Suburb.find_each do |suburb| %>
+    <tr>
+        <td> <%= suburb.id %> </td>
+        <td> <%= suburb.suburb_name %> </td>
+        <td> <%= suburb.state %> </td>
+        <td> <%= suburb.postcode %> </td>
+        <td> <%= suburb.latitude %> </td>
+        <td> <%= suburb.longitude %> </td>
+        <td>Edit</td>
+        <td>Delete <% t=Time.now %> <%= t.strftime("%H:%M:%S.%6N") %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

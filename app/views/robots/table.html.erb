@@ -1,0 +1,34 @@
+<h2>Hi <%= current_user.email %> (@<%= current_user.username %>), IS A LIST of your robots: </h2>
+
+<% if @robots == [] %>
+  <p> You dont have any robots yet! </p>
+<% end %>
+
+<% @robots.each do |robot| %>
+  <% @robot = robot %>
+  <div class="robot-card">
+    <div>
+      <img src="<%= robot.img_sm %>" alt="<%= robot.robot_name %>'s Picture">
+    </div>
+    <p> <%= robot.robot_name %> </p>
+    <p> <%= robot.suburb %> </p>
+    <p> <%= robot.postcode %> </p>
+    <p> <%= robot.state %> </p>
+    <p>Robot ID: <%= robot.id %> </p>
+    <div class="view-edit-delete">
+      <div><%= link_to robot.id, robot_path(robot) %></div>
+      <div>
+        <%= link_to "Edit", :controller => 'robots', :action => 'edit', :id => robot.id %>
+
+      </div>
+      <div>
+        <%= link_to "Delete", {:controller => 'robots', :action => 'destroy', :id => robot.id}, method: :delete, data: {confirm: 'Are you sure?'} %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= button_to "Back", {:controller => 'robots', :action => 'index'}, method: :get %>
+<%= button_to "Log Out", :controller => 'sessions', :action => 'destroy' %>
+<hr>
+<%= button_to "Build a Robot", {:controller => 'robots', :action => 'new'}, method: :get %>

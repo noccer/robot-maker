@@ -1,0 +1,113 @@
+<% #DONT DELETE THIS! %>
+<% offset = rand(Suburb.count) %>
+<% #DONT DELETE THE ABOVE! %>
+
+<% Suburb.all.where(:id => offset).each do |suburb| %>
+	<% link_to suburb.suburb_name, suburb_path(suburb) %>
+	<% link_to suburb.id, suburb_path(suburb) %>
+	<% link_to suburb.state, suburb_path(suburb) %>
+<% end %>
+<%= link_to "Log Out", {:controller => 'sessions', :action => 'destroy'}, method: :post %>
+<hr>
+<div class="form-card">
+	<h2>Build a robot!</h2>
+	<%= form_for :robot, url: '/robots/create' do |f| %>
+	  <table>
+	    <tr>
+	      <td class="bold">Robot Name:</td>
+	      <td><%= f.text_field :robot_name %></td>
+	    </tr>
+	    <tr>
+	      <td class="bold">Suburb:</td>
+	      <td><%= f.text_field :suburb %></td>
+	    </tr>
+	    <tr>
+	      <td class="bold">Postcode:</td>
+	      <td><%= f.number_field :postcode %></td>
+	    </tr>
+			<tr>
+	      <td class="bold">Latitude:</td>
+	      <td><%= f.number_field :latitude %></td>
+	    </tr>
+			<tr>
+	      <td class="bold">longitude:</td>
+	      <td><%= f.number_field :longitude %></td>
+	    </tr>
+	    <tr>
+	      <td class="bold">State:</td>
+	      <td><%= f.text_field :state %></td>
+	    </tr>
+	    <tr>
+	      <td class="bold">Quote:</td>
+	      <td><%= f.text_field :quote %></td>
+	    </tr>
+	    <tr>
+	      <td></td>
+	      <td><%= f.submit("Create")%></td>
+	    </tr>
+	  </table>
+	<% end %>
+
+	<br>
+	<table>
+	  <tr>
+	    <td>
+	      Feeling lazy?
+	    </td>
+	    <td>
+	    	<%=
+					button_to "Make one for me!",
+					:controller => 'robots',
+					:action => 'create_robot_automatically'
+				%>
+	    </td>
+	  </tr>
+	</table> <br>
+
+	<table style="display: none;">
+	  <tr>
+	    <td>
+	      Feeling lazy?
+	    </td>
+	    <td>
+	      <%= form_for :robot, url: '/robots/auto' do |f| %>
+	        <table style="display: none;">
+	          <tr>
+	            <td class="bold">Robot Name:</td>
+
+	            <td><%= f.text_field :robot_name, :value => Faker::Name.first_name %></td>
+	          </tr>
+	          <tr>
+	            <td class="bold">Suburb:</td>
+	            <% Suburb.all.where(:id => offset).each do |suburb| %>
+	            <td><%= f.text_field :suburb, :value => suburb.suburb_name %></td>
+	          </tr>
+	          <tr>
+	            <td class="bold">Postcode:</td>
+	            <td><%= f.number_field :postcode, :value => suburb.postcode %></td>
+	          </tr>
+	          <tr>
+	            <td class="bold">State:</td>
+	            <td><%= f.text_field :state, :value => suburb.state %></td>
+	          </tr>
+	          <tr>
+	            <td class="bold">Latitude:</td>
+	            <td><%= f.number_field :latitude, :value => suburb.latitude %></td>
+	          </tr>
+	          <tr>
+	            <td class="bold">Longitude:</td>
+	            <td><%= f.number_field :longitude, :value => suburb.longitude %></td>
+	          </tr>
+	          <% end %>
+	          <tr>
+	            <td></td>
+	            <td><%= f.submit("Create")%></td>
+	          </tr>
+	        </table>
+	        <%= f.submit("Create one for me!")%>
+	      <% end %>
+	    </td>
+	  </tr>
+	</table> <br>
+</div>
+<%= link_to "Back", {:controller => 'robots', :action => 'index'} %>

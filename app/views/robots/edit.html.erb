@@ -1,0 +1,44 @@
+<%= link_to "Log Out", {:controller => 'sessions', :action => 'destroy'}, method: :post %>
+<hr>
+<div class="form-card">
+  <h2>Edit your robot: <%= @robot.robot_name %></h2>
+
+  <%= form_for @robot, method: :patch do |f| %>
+  <table>
+    <tr>
+      <td class="bold">Robot Name:</td>
+      <td><%= f.text_field :robot_name %></td>
+    </tr>
+    <tr>
+      <td class="bold">Suburb:</td>
+      <td><%= f.text_field :suburb %></td>
+    </tr>
+    <tr>
+      <td class="bold">Postcode:</td>
+      <td><%= f.number_field :postcode %></td>
+    </tr>
+    <tr>
+      <td class="bold">State:</td>
+      <td><%= f.text_field :state %></td>
+    </tr>
+    <tr>
+      <td class="bold">Latitude:</td>
+      <td><%= f.number_field :latitude %></td>
+    </tr>
+    <tr>
+      <td class="bold">Longitude:</td>
+      <td><%= f.number_field :longitude %></td>
+    </tr>
+    <tr>
+      <td class="bold">Quote:</td>
+      <td><%= f.text_field :quote %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit("Update Robot")%></td>
+    </tr>
+  </table>
+
+  <% end %>
+</div>
+<%= link_to "Back", {:controller => 'robots', :action => 'index'} %>

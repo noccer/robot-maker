@@ -1,0 +1,65 @@
+<%= link_to "Log Out", {:controller => 'sessions', :action => 'destroy'}, method: :post %>
+<hr>
+<div class="robot-card-show">
+  <div class="halfwidth">
+    <img class="img-lg" src="<%= @robot.img_lg %>" alt=""><br>
+    <h2><%= @robot.robot_name %></h2>
+    <p class="quote">"
+      <% if @robot.quote[0..2] == '<p>'%>
+        <%= @robot.quote[3..-7].html_safe %>
+      <% else %>
+        <%= @robot.quote %>
+      <% end %>
+      "</p>
+  </div>
+  <div class="halfwidth">
+    <table>
+      <tr>
+        <td class="bold">Suburb:</td>
+        <td><%= @robot.suburb %></td>
+      </tr>
+      <tr>
+        <td class="bold">Weather District:</td>
+        <td><%= @robot_weather['name'] %></td>
+      </tr>
+      <tr>
+        <td class="bold">State:</td>
+        <td><%= @robot.state %></td>
+      </tr>
+      <tr>
+        <td class="bold">Postcode:</td>
+        <td><%= @robot.postcode %></td>
+      </tr>
+      <tr>
+        <td class="bold">Lat:</td>
+        <td><%= @robot.latitude %></td>
+      </tr>
+      <tr>
+        <td class="bold">Long:</td>
+        <td><%= @robot.longitude %></td>
+      </tr>
+      <tr>
+        <td class="bold">Curent Temp:</td>
+        <td><%= output_weather('temp') %>&deg;C</td>
+      </tr>
+      <tr>
+        <td class="bold">Forecast Max:</td>
+        <td><%= output_weather('temp_max') %>&deg;C</td>
+      </tr>
+      <tr>
+        <td class="bold">Forecast Min:</td>
+        <td><%= output_weather('temp_min') %>&deg;C</td>
+      </tr>
+      <tr>
+        <td class="bold">Weather Outlook:</td>
+        <td><%= @robot_weather['weather'][0]['main'] %></td>
+      </tr>
+    </table>
+    <div class="mappa">
+      <h5>Map</h5>
+      <div class="stuffa"></div>
+    </div>
+  </div>
+</div>
+<br>
+<%= link_to "Back", {:controller => 'robots', :action => 'index'} %>

@@ -1,0 +1,59 @@
+<h2>Hi <%= current_user.user_firstname %> (@<%= current_user.username %>) </h2>
+<hr>
+<%= link_to "Back", '/' , method: :get %>
+<%= link_to "Log Out", {:controller => 'sessions', :action => 'destroy'}, method: :post %>
+<%= link_to "Build a Robot", {:controller => 'robots', :action => 'new'}, method: :get %>
+<%= link_to "Log Out", {:controller => 'sessions', :action => 'destroy'}, method: :post %>
+
+<hr>
+
+<% if @robots == [] %>
+  <p> You dont have any robots yet! </p>
+<% end %>
+
+<% if @robots != [] %>
+  <p> Here are your robots: </p>
+<% end %>
+
+
+<% @robots.each do |robot| %>
+  <% if robot.user_id == @current_user.id %>
+    <% @robot = robot %>
+    <div class="robot-card-index">
+      <div class="percent">
+          <img class="img-sm" src="<%= robot.img_sm %>" alt="<%= robot.robot_name %>'s Picture">
+      </div>
+      <table>
+        <tr>
+          <td class="bold hundred">Name:</td>
+          <td><%= robot.robot_name %></td>
+        </tr>
+        <tr>
+          <td class="bold">Lives in:</td>
+          <td><%= robot.suburb %></td>
+        </tr>
+        <tr>
+          <td class="bold">Postcode:</td>
+          <td><%= robot.postcode %></td>
+        </tr>
+        <tr>
+          <td class="bold">State:</td>
+          <td><%= robot.state %></td>
+        </tr>
+      </table>
+
+      <div class="view-edit-delete">
+        <div><%= link_to "View", robot_path(robot) %></div>
+        <% if robot.user_id == @current_user.id %>
+        <div>
+
+          <%= link_to "Edit", :controller => 'robots', :action => 'edit', :id => robot.id %>
+        </div>
+        <div>
+          <%= link_to "Delete", {:controller => 'robots', :action => 'destroy', :id => robot.id}, method: :delete, data: {confirm: 'Are you sure?'} %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

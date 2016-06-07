@@ -1,0 +1,59 @@
+<!-- <script>
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -24.8304075, lng: 134.3195563},
+      zoom: 4
+    });
+  }
+</script> -->
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEgzq8I8LS86ag4qLwsl5bGG9RAJ3pl-U&callback=initMap" async defer>
+</script> -->
+<script>
+  function initMap() {
+    var myLatLng = {lat: -24.8304075, lng: 134.3195563};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: myLatLng
+    });
+
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Robots'
+    });
+  }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEgzq8I8LS86ag4qLwsl5bGG9RAJ3pl-U&callback=initMap">
+</script>
+
+<div class="form-card">
+<h2>Robot Maker</h2>
+  <% if session[:user_id].nil? %>
+    <%= form_tag '/login' do %>
+      <table>
+        <tr>
+          <td class="bold"> Username: </td> <td> <%= text_field_tag :username %> </td>
+        </tr>
+        <tr>
+          <td class="bold"> Password: </td> <td> <%= password_field_tag :password %> </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= submit_tag "Log In" %></td>
+        </tr>
+      </table>
+    <% end %>
+
+  <br>Don't have an account? <%= link_to "Create one", {:controller => 'users', :action => 'new_user_form'}, method: :get %>
+
+  <% else %>
+    <p> You're logged in!<p>
+    <%= link_to "Log Out", {:controller => 'sessions', :action => 'destroy'}, method: :post %>
+    <%= link_to "My Robots", {:controller => 'robots', :action => 'index'}, method: :get %>
+<% end %>
+</div>
+
+<div class="home-img"><img src="https://robohash.org/niall" alt=""></div>
