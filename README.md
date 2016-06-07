@@ -69,7 +69,7 @@ Overall I am disappointed with the app because it is far below the standards of 
 
 ## My GitHub Repo
 
-<https://github.com/noccer2016/tic-tac-toe>
+<https://github.com/noccer2016/robot-maker>
 
 ## Hosted Version of My Game
 TBA
